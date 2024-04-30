@@ -37,9 +37,9 @@ const [cart, setCart] = useState<any>(cartItems || [])
         navigate("/order-successful")
         
       },
-      onError: (err: any) => {
+      onError: (err) => {
         // form.setSubmitting(false)
-        toast.error(err)
+        toast.error("pleae try again")
       },
     }
   );
