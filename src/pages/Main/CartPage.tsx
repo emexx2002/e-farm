@@ -76,7 +76,7 @@ const [cart, setCart] = useState<any>(cartItems || [])
           {/* Repeat the above product card for each product in the cart */}
         </div>
         <div> 
-          <input onChange={(e:any) => setAddress(e.target.value)} className="w-[350px] px-6 py-3" placeholder="enter your address" />
+          <input onChange={(e:any) => setAddress(e.target.value)} className="w-[350px] border rounded mt-8 px-6 py-3" placeholder="enter your address" />
         </div>
         <div className="mt-8 flex justify-between items-center">
           <div>
