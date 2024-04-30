@@ -5,22 +5,17 @@ import { ProductService } from '../../services/product.service'
 import { useAuth } from '../../zustand/auth.store'
 import { formatAmount } from '../../utils/Helpfunctions'
 import toast from 'react-hot-toast'
+import { CartActions, useCart } from '../../zustand/cart.store'
 
 const HomePage = () => {
 const profile = useAuth((s) => s.profile)
+const newData:any = useCart((s) => s.cartItems)
+const [cart, setCart] = useState<any>(newData || [])
 
-const [cart, setCart] = useState<any>([])
-
-useEffect(() => {
-  const newData = localStorage.getItem("cart")
-  if (newData) {
-    setCart(JSON.parse(newData))
-  }
-},[])
 
   // Function to save cart to localStorage
   const saveCartToLocalStorage = () => {
-    localStorage.setItem('cart', JSON.stringify(cart));
+    CartActions.setCartItem(cart)
   };
 
   // Function to add a product to the cart
@@ -73,7 +68,7 @@ useEffect(() => {
 
           {
             allProducts && allProducts.data.map((items:any) =>   <div className="bg-white p-4 shadow-md rounded-lg">
-            <NavLink to={`/product/${items._id}`}>
+            <NavLink onClick={() => localStorage.setItem("selectedProd", JSON.stringify(items))} to={`/product/${items._id}`}>
               <img
                 src={items.image !== "" ? items.image : "https://via.placeholder.com/300"}
                 alt="Product 1"

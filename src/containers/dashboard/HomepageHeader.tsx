@@ -4,19 +4,12 @@ import { useAuth } from '../../zustand/auth.store'
 import { FiShoppingCart } from "react-icons/fi";
 import { NavLink } from 'react-router-dom';
 import { LogoutContext } from '../../context/LogoutContext';
+import { useCart } from '../../zustand/cart.store';
 
 const HomepageHeader = () => {
   const logout: any = useContext(LogoutContext)
   const isLoggedIn: boolean = useAuth(s => !!s.token)
-  const [cart, setCart] = useState([])
-
-
-  useEffect(() => {
-    const newData = localStorage.getItem("cart")
-    if (newData) {
-      setCart(JSON.parse(newData))
-    }
-  },[])
+  const cart:any = useCart(s => s.cartItems)
 
     return (
         <div>
@@ -35,7 +28,7 @@ const HomepageHeader = () => {
                             <NavLink to={"/cart"}>
                                 <div className='relative w-[30px]'>
                                     <FiShoppingCart />
-                                    <span className='text-xs right-0 -top-2 absolute flex items-center justify-center font-medium text-white bg-black w-4 rounded-full h-4'>{0}</span>
+                                    <span className='text-xs right-0 -top-2 absolute flex items-center justify-center font-medium text-white bg-black w-4 rounded-full h-4'>{cart.length}</span>
 
                                 </div>
                             </NavLink>
